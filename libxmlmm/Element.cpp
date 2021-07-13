@@ -169,6 +169,22 @@ namespace xml
     }
 
 
+    std::vector<std::pair<std::string, std::string>> Element::get_attributes()
+    {
+	    std::vector<std::pair<std::string, std::string>> attr;
+	    xmlAttr* attrNode = cobj->properties;
+	    while (attrNode) {
+	        xmlChar* value = xmlNodeListGetString(attrNode->doc, attrNode->children, 1);
+	        attr.push_back(std::make_pair(
+	                reinterpret_cast<const char*>(attrNode->name),
+	                reinterpret_cast<const char*>(value)));
+	        xmlFree(value);
+	        attrNode = attrNode->next;
+	    }
+	    return attr;
+    }
+
+
     Element* Element::find_element(const std::string& xpath)
     {
         return this->find<Element*>(xpath);

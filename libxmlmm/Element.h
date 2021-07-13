@@ -167,6 +167,8 @@ namespace xml
          **/
         std::vector<const Node*> get_children() const;
 
+        std::vector<std::pair<std::string, std::string>> get_attributes();
+
         /**
          * Find a given element.
          *
